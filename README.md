@@ -62,8 +62,9 @@ TaskFlow es una aplicación web moderna desarrollada con Laravel 9 y Vue.js 3 qu
 ### Herramientas de Desarrollo
 - **Laravel Pint** - Code formatter
 - **PHPUnit** - Testing framework
-- **Laravel Sail** - Docker development environment
+- **Laravel Sail** - Docker development environment (Recomendado)
 - **Faker** - Data generation for testing
+- **Docker** - Containerización para desarrollo
 
 ## 📁 Estructura del Proyecto
 
@@ -123,14 +124,16 @@ laravel/
 
 ## 🔧 Instalación y Configuración
 
-### Requisitos Previos
+### Opción 1: Instalación Tradicional
+
+#### Requisitos Previos
 - PHP 8.0 o superior
 - Composer
 - Node.js y npm
 - MySQL
 - Git
 
-### Pasos de Instalación
+#### Pasos de Instalación
 
 1. **Clonar el repositorio**
 ```bash
@@ -186,9 +189,107 @@ npm run build
 php artisan serve
 ```
 
+### Opción 2: Instalación con Laravel Sail (Recomendado)
+
+Laravel Sail proporciona un entorno de desarrollo Docker ligero para Laravel. Es la forma más fácil de comenzar a desarrollar con Laravel.
+
+#### Requisitos Previos
+- Docker Desktop
+- Git
+
+#### Pasos de Instalación con Sail
+
+1. **Clonar el repositorio**
+```bash
+git clone <repository-url>
+cd laravel
+```
+
+2. **Instalar dependencias PHP**
+```bash
+composer install
+```
+
+3. **Configurar variables de entorno**
+```bash
+cp .env.example .env
+```
+
+4. **Configurar Laravel Sail**
+```bash
+php artisan sail:install
+```
+
+5. **Iniciar los contenedores Docker**
+```bash
+./vendor/bin/sail up -d
+```
+
+6. **Generar clave de aplicación**
+```bash
+./vendor/bin/sail artisan key:generate
+```
+
+7. **Ejecutar migraciones**
+```bash
+./vendor/bin/sail artisan migrate
+```
+
+8. **Ejecutar seeders (opcional)**
+```bash
+./vendor/bin/sail artisan db:seed
+```
+
+9. **Instalar dependencias JavaScript**
+```bash
+./vendor/bin/sail npm install
+```
+
+10. **Compilar assets**
+```bash
+./vendor/bin/sail npm run dev
+# o para producción
+./vendor/bin/sail npm run build
+```
+
+#### Comandos Útiles de Sail
+
+```bash
+# Iniciar contenedores
+./vendor/bin/sail up -d
+
+# Detener contenedores
+./vendor/bin/sail down
+
+# Ejecutar comandos Artisan
+./vendor/bin/sail artisan migrate
+
+# Acceder al shell del contenedor
+./vendor/bin/sail shell
+
+# Ejecutar tests
+./vendor/bin/sail test
+
+# Ver logs
+./vendor/bin/sail logs
+
+# Instalar nuevas dependencias Composer
+./vendor/bin/sail composer require package/name
+
+# Instalar nuevas dependencias NPM
+./vendor/bin/sail npm install package-name
+```
+
+#### Ventajas de usar Laravel Sail
+- **Entorno consistente**: Mismo entorno en cualquier máquina
+- **Fácil configuración**: No necesitas instalar PHP, MySQL, Redis, etc.
+- **Aislamiento**: No interfiere con otras instalaciones locales
+- **Escalabilidad**: Fácil agregar nuevos servicios (Redis, Elasticsearch, etc.)
+- **Desarrollo en equipo**: Todos los desarrolladores usan el mismo entorno
+
 ## 🚀 Comandos Útiles
 
-### Desarrollo
+### Desarrollo Tradicional
 ```bash
 # Servidor de desarrollo
 php artisan serve
@@ -206,7 +307,25 @@ php artisan test
 ./vendor/bin/pint
 ```
 
-### Base de Datos
+### Desarrollo con Laravel Sail
+```bash
+# Servidor de desarrollo
+./vendor/bin/sail up -d
+
+# Compilar assets en modo desarrollo
+./vendor/bin/sail npm run dev
+
+# Compilar assets en modo producción
+./vendor/bin/sail npm run build
+
+# Ejecutar tests
+./vendor/bin/sail test
+
+# Formatear código
+./vendor/bin/sail pint
+```
+
+### Base de Datos (Tradicional)
 ```bash
 # Ejecutar migraciones
 php artisan migrate
@@ -219,6 +338,21 @@ php artisan db:seed
 
 # Refrescar base de datos
 php artisan migrate:refresh --seed
+```
+
+### Base de Datos (Sail)
+```bash
+# Ejecutar migraciones
+./vendor/bin/sail artisan migrate
+
+# Rollback migraciones
+./vendor/bin/sail artisan migrate:rollback
+
+# Ejecutar seeders
+./vendor/bin/sail artisan db:seed
+
+# Refrescar base de datos
+./vendor/bin/sail artisan migrate:refresh --seed
 ```
 
 ### Cache y Optimización
@@ -520,9 +654,9 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 👥 Equipo de Desarrollo
 
-- **Desarrollador Principal**: [Tu Nombre]
-- **Email**: [tu-email@ejemplo.com]
-- **GitHub**: [tu-usuario-github]
+- **Desarrollador Principal**: Julio Núñez
+- **Email**: nunezjuliot@gmail.com
+- **GitHub**: [juliotnu01](https://github.com/juliotnu01)
 
 ## 📞 Soporte
 
